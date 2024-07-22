@@ -24,35 +24,54 @@ module.exports = () => {
         title: 'Just Another Text Editor',
         template: 'src/index.html'
       }),
-      new MiniCssExtractPlugin(),
-      new CssMinimizerWebpackPlugin(),
-      
+
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
+      }),
+
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: 'Just Another Text Editor',
+        short_name:'JATE',
+        description: 'Edit Text!',
+        background_color: 'black',
+        theme_color: 'pink',
+        start_url: './',
+        publicPath: './',
+        icons: [
+          {
+            src: path.resolve('src/images/log.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            desination: path.join('assets', 'icons'),
+          },
+        ],
+      }),
     ],
 
     module: {
+      // CSS loaders
       rules: [
-      {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader']
-      },
-      {
-        test: /\.(png|jpg|svg|jpeg|gif|webp)$/i,
-        type: 'asset/resource'
-      },
-      {
-        test: /\.(?:js|mjs|cjs)$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', { targets: "defaults" }]
-            ]
-          }
-        }
-      }
-    ]
-  }
-  }
-}
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/,
+          // We use babel-loader in order to use ES6.
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime'],
+            },
+          },
+        },
+      ],
+    },
+  };
+};
+
 
