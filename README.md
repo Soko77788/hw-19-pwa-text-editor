@@ -2,6 +2,8 @@
 
 Build a progressive web app that works offline and bundles code to create text editor app!
 
+![Text Editor Screenshot](./client/src/images/text-editor.png)
+
 ## Description
   *  Use webpack to bundle code and create a web app upon launch.
   *  Cache data and reload it when coming back to the page. 
@@ -54,4 +56,6 @@ This project is unlicensed.
   
 
   ## Link to deployed app 
+
+  https://hw-19-pwa-text-editor-4iif.onrender.com
   
