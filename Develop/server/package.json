@@ -1,9 +1,11 @@
 {
-    "name": "JATE",
+    "name": "hw-19-pwa-text-editor",
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
     "scripts": {
+        "start": "node server.js",
+        "dev": "npx nodemon sever.js",
         "server": "nodemon server.js --ignore client"
     },
     "keywords": [],
